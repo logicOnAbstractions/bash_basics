@@ -1,0 +1,4 @@
+var="foo"
+if [[ $var == "foo" ]]; then
+	echo "$var is foo"
+fi

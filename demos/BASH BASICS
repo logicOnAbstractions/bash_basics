@@ -1,5 +1,10 @@
 # a basic basic bash file that shows some syntax & cmds
 
+: <<'END'
+this is a block comment
+END
+
+
 # declaring a variable & basic references 
 var=42
 echo "this is var: ${var}"
@@ -36,5 +41,44 @@ echo "__ans: $__ans"
 # here since we evalute in the current context, $ans remains as an accessible global value
 add_stuff_return 6 5
 echo "__ans: $__ans"
+echo ""
+# conditionals
+: <<'END'
+ [[ is actually a program call. IT CAN ONLY RETURN 0 (true) 1 (false). a few notes:
+	* any program that also returns 0,1 grep, ping, etc.
+	* a few convenient options can be passed, 
+END
+
+var="foo"
+if [[ $var == "foo" ]]; then
+	echo "$var is foo"
+elif [[ -n "$var" ]]; then
+	echo "$var is not empty"
+else
+	echo "$var is empty"
+fi
+echo ""
+# conditionals - evaluate numeric expr.
+if (( 40 + 2 == 42 )); then
+	echo "we have 42!"
+else
+	echo "we don't have 42.."
+fi
+echo "" 
+# brace expensions
+echo "{a,b,c}42:"
+echo {a,b,c}42
+#useful in for loops:
+for i in {1..5}; do
+	echo "this is loop $i"
+done
+for i in {1..50..10}; do
+	echo "this is loop $i by stepsize 10"
+done
+# iterate on a directory
+for file in ~/Downloads/*; do
+	echo $file
+done
+
 
 
