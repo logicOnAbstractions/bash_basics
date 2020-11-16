@@ -1,3 +1,40 @@
 # a basic basic bash file that shows some syntax & cmds
 
-# declaring a variable
+# declaring a variable & basic references 
+var=42
+echo "this is var: ${var}"
+echo "this also: $var"
+echo ""
+
+# different ways to evaluate xprs
+var2=5
+echo "addding stuff: ${var} + ${var2}"		# doesn't work, need to tell it to eval xprs 
+echo "this will add: $(($var + $var2))"		# $((...)) evaluates an arithmetic xprs 
+echo ""
+# subtleties of string quotes
+echo "this is $var (double quotes)"
+echo 'this is var (single quotes)'
+echo 'All sorts of things are ignored in single quotes, like $ & * ; |.' 
+echo ""
+# shell exec - 2 equivalent notations
+echo "Listing home - using \$( ls ~ ):  $(ls ~)"
+echo "Listing home - using \` ls ~ \`:  `ls ~`"
+echo ""
+# declaring a function & using it
+add_stuff() {
+	echo "the sum is: $(($1 + $2))"
+}
+add_stuff 66 99
+# returning a value from a function
+function add_stuff_return(){
+	__ans=$(($1+$2))
+	echo "done with \$__ans=$__ans"
+}
+# this prints nothing for $ans because the function evaluated as a global within the ${} context
+echo "add_stuff_return: $(add_stuff_return 3 4)"
+echo "__ans: $__ans"
+# here since we evalute in the current context, $ans remains as an accessible global value
+add_stuff_return 6 5
+echo "__ans: $__ans"
+
+
